@@ -38,16 +38,18 @@ jobs:
           npx cap init SimpleApp com.simple.app --web-dir www
           npx cap add android
 
+      - name: Clear Gradle Cache
+        run: rm -rf ~/.gradle/caches/
+
       - name: Build APK
         run: |
           cd app-project/android
           chmod +x gradlew
-          ./gradlew clean assembleDebug --no-daemon
+          ./gradlew clean assembleDebug --no-daemon --no-parallel
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
           path: app-project/android/app/build/outputs/apk/debug/app-debug.apk
-
-
+          
