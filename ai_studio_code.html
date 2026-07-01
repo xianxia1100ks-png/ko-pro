@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ရှန်းရှကျင့်ကြံခြင်းဂိမ်း - Xianxia Path of Immortality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Padauk', sans-serif;
+      background: radial-gradient(circle at 50% 30%, #0c1224 0%, #05070e 100%);
+      color: #dfca94;
+    }
+    
+    /* Elegant Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 9px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(223, 202, 148, 0.2);
+      border-radius: 9px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(223, 202, 148, 0.4);
+    }
+
+    /* Magical Animations & Effects */
+    @keyframes lightningFlash {
+      0%, 100% { background-color: transparent; }
+      10%, 30% { background-color: rgba(255, 255, 255, 0.95); box-shadow: 0 0 50px #fff; }
+      15%, 25% { background-color: rgba(165, 243, 252, 0.8); }
+    }
+    .lightning-active {
+      animation: lightningFlash 0.5s cubic-bezier(0.25, 1, 0.5, 1) 2;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-3px, 3px) rotate(-0.5deg); }
+      40% { transform: translate(3px, -2px) rotate(0.5deg); }
+      60% { transform: translate(-3px, -3px) rotate(-0.5deg); }
+      80% { transform: translate(3px, 2px) rotate(0.5deg); }
+    }
+    .shake-active {
+      animation: shake 0.2s ease-in-out infinite;
+    }
+
+    @keyframes rotateYinYang {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .rotating-ring {
+      animation: rotateYinYang 12s linear infinite;
+    }
+    .rotating-ring-reverse {
+      animation: rotateYinYang 16s linear infinite reverse;
+    }
+
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), inset 0 0 15px rgba(6, 182, 212, 0.2); }
+      50% { transform: scale(1.04); box-shadow: 0 0 35px rgba(6, 182, 212, 0.6), inset 0 0 25px rgba(6, 182, 212, 0.4); }
+    }
+    .glowing-orb-anim {
+      animation: gentlePulse 4s ease-in-out infinite;
+    }
+
+    /* Floating Qi Text Animation */
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-70px) scale(1.1); opacity: 0; }
+    }
+    .floating-text {
+      animation: floatUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      pointer-events: none;
+    }
+
+    /* Glass Panels */
+    .glass-panel {
+      background: rgba(13, 20, 38, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(223, 202, 148, 0.12);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    }
+    .glass-panel-accent {
+      border: 1.5px solid rgba(245, 158, 11, 0.25);
+    }
+
+    /* Glow transitions for interactive items */
+    .btn-gold {
+      background: linear-gradient(135deg, #b45309 0%, #78350f 100%);
+      color: #fef3c7;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      box-shadow: 0 2px 10px rgba(120, 53, 15, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #d97706 0%, #92400e 100%);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+      border-color: rgba(251, 191, 36, 0.6);
+      transform: translateY(-1px);
+    }
+    .btn-gold:active {
+      transform: translateY(1px);
+    }
+
+    .btn-secondary-mystic {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(223, 202, 148, 0.15);
+      transition: all 0.3s ease;
+    }
+    .btn-secondary-mystic:hover {
+      background: rgba(30, 41, 59, 0.8);
+      border-color: rgba(223, 202, 148, 0.4);
+      box-shadow: 0 0 10px rgba(223, 202, 148, 0.1);
+    }
+
+    /* Red Lightning Overlay for tribulation screen */
+    .lightning-fork {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: pointer-events-none;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.1s ease;
+    }
+  </style>
+</head>
+<body class="h-screen overflow-hidden p-3 flex flex-col justify-between select-none">
+
+  <!-- Background decorative element -->
+  <div class="fixed inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-indigo-950/20 via-transparent to-transparent pointer-events-none"></div>
+
+  <!-- Main Container -->
+  <div class="h-full w-full flex flex-col gap-2.5 max-w-lg mx-auto relative z-10">
+    
+    <!-- Top Compact Header Banner -->
+    <header class="h-[6dvh] flex justify-between items-center border-b border-amber-500/20 pb-1.5 flex-none">
+      <div class="flex items-center gap-1.5">
+        <div class="w-2.5 h-2.5 bg-amber-500 rounded-full animate-ping absolute opacity-70"></div>
+        <div class="w-2.5 h-2.5 bg-amber-500 rounded-full relative"></div>
+        <h1 class="text-lg bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent font-bold tracking-wider">
+          ရှန်းရှကျင့်ကြံခြင်း ဂိမ်းတော်ကြီး
+        </h1>
+      </div>
+      <div class="text-[10px] text-emerald-400 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-full flex items-center gap-1.5 transition-all duration-300">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="save-status-text" class="font-medium tracking-wide">ဒေတာများကို သိမ်းဆည်းပြီး</span>
+      </div>
+    </header>
+
+    <!-- Character Creation Modal -->
+    <div id="creation-modal" class="fixed inset-0 bg-slate-950/98 z-50 flex items-center justify-center p-4 backdrop-blur-md">
+      <div class="glass-panel glass-panel-accent rounded-2xl p-6 max-w-xs w-full flex flex-col gap-5 shadow-[0_0_50px_rgba(245,158,11,0.15)] animate-fade-in relative overflow-hidden">
+        <div class="absolute -top-10 -left-10 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-10 -right-10 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl"></div>
+
+        <h2 class="text-base text-amber-400 text-center border-b border-amber-500/20 pb-2.5 font-bold tracking-wider flex justify-center items-center gap-1.5">
+          ✨ ကျင့်ကြံသူအသစ် ဖန်တီးခြင်း
+        </h2>
+        
+        <div class="flex flex-col gap-3.5">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-[11px] text-slate-400 tracking-wide">ကျင့်ကြံသူ၏ အမည်</label>
+            <input id="input-name" type="text" value="လင်းဖန်" class="bg-slate-950/90 border border-amber-500/20 rounded-lg px-3 py-2 text-sm text-amber-100 focus:outline-none focus:border-amber-500 transition-all font-normal">
+          </div>
+          
+          <div class="flex flex-col gap-1.5">
+            <label class="text-[11px] text-slate-400 tracking-wide">လိင်အမျိုးအစား</label>
+            <select id="input-gender" class="bg-slate-950/90 border border-amber-500/20 rounded-lg px-3 py-2 text-sm text-amber-100 focus:outline-none focus:border-amber-500 transition-all cursor-pointer">
+              <optgroup label="ကျင့်ကြံသူပုံစံ" class="bg-slate-950 text-amber-100">
+                <option value="အမျိုးသား">အမျိုးသား (Yin-Yang Taoist)</option>
+                <option value="အမျိုးသမီး">အမျိုးသမီး (Jade Maiden)</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-[11px] text-slate-400 tracking-wide">စတင်မည့် သက်တမ်း</label>
+            <input id="input-age" type="number" min="16" max="100" value="16" class="bg-slate-950/90 border border-amber-500/20 rounded-lg px-3 py-2 text-sm text-amber-100 focus:outline-none focus:border-amber-500 transition-all">
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-[11px] text-slate-400 tracking-wide">မူလဇာတာ ပါရမီ</label>
+            <div id="talent-info" class="bg-emerald-950/30 border border-emerald-500/20 p-2.5 rounded-lg text-xs text-emerald-400 font-semibold flex items-center justify-center gap-1">
+              🧬 သာမန်ခန္ဓာကိုယ် (ကျင့်ကြံမှုနှုန်း ပုံမှန်)
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-start-game" class="w-full py-2.5 btn-gold rounded-xl font-bold text-sm tracking-widest mt-1">
+          တာအိုလမ်းစဉ်ကို စတင်ပါ ⚔️
+        </button>
+      </div>
+    </div>
+
+    <!-- UPPER ROW: Character Status & World Log -->
+    <div class="h-[25dvh] grid grid-cols-12 gap-2.5 flex-none">
+      
+      <!-- Character Status -->
+      <div class="col-span-12 sm:col-span-5 glass-panel rounded-xl p-3 flex flex-col justify-between text-[11px] relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-16 h-16 bg-cyan-500/5 rounded-full blur-xl pointer-events-none"></div>
+        
+        <div class="border-b border-slate-800 pb-1.5">
+          <div class="flex justify-between items-center mb-1">
+            <span id="char-name" class="text-sm font-bold text-amber-300 truncate max-w-[90px]">လင်းဖန်</span>
+            <span id="char-gender" class="text-[9px] text-slate-300 bg-slate-800/80 px-1.5 py-0.5 rounded-full tracking-wider border border-slate-700">အမျိုးသား</span>
+          </div>
+          <div id="char-realm" class="text-xs text-emerald-400 mt-1 font-semibold truncate flex items-center gap-1">
+            ☯️ ချီစုစည်းခြင်းအဆင့် (၁)
+          </div>
+        </div>
+        
+        <div class="flex flex-col gap-1 mt-1.5">
+          <div class="flex justify-between text-[10px] text-slate-400 items-baseline">
+            <span>ဝိညာဉ်ချီစွမ်းအား</span>
+            <span class="text-cyan-400 font-mono tracking-wider" id="qi-text">၀/၁၀၀</span>
+          </div>
+          <div class="w-full bg-slate-950 h-2.5 rounded-full p-0.5 overflow-hidden border border-slate-800/80">
+            <div id="qi-bar" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 h-full w-0 rounded-full transition-all duration-300 shadow-[0_0_8px_rgba(20,184,166,0.5)]"></div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1 mt-2 border-t border-slate-800/40 pt-2 text-[10px]">
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">လက်ရှိသက်တမ်း</span>
+            <span id="char-age" class="text-slate-200 font-medium">၁၆ နှစ်</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">သက်တမ်းကန့်သတ်ချက်</span>
+            <span id="char-max-age" class="text-rose-300 font-medium">၁၀၀ နှစ်</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">ကံကြမ္မာရမှတ်</span>
+            <span id="char-karma" class="text-purple-400 font-semibold bg-purple-950/30 border border-purple-900/40 px-1.5 py-0.5 rounded">၀ မှတ်</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- World Log -->
+      <div class="col-span-12 sm:col-span-7 glass-panel rounded-xl p-3 flex flex-col justify-between overflow-hidden relative">
+        <div class="text-[10px] text-amber-200 border-b border-slate-800 pb-1.5 flex justify-between items-center flex-none">
+          <span class="flex items-center gap-1 font-semibold">📜 လောကဓာတ် မှတ်တမ်း</span>
+          <button id="btn-clear-log" class="text-[9px] text-slate-500 hover:text-rose-400 transition-colors uppercase font-mono">ဖျက်မည်</button>
+        </div>
+        <div id="game-log" class="flex-grow overflow-y-auto text-[11px] text-slate-300 flex flex-col gap-1.5 pr-1 mt-2 font-normal scroll-smooth h-[14dvh]">
+          <!-- Custom welcome message -->
+          <div class="text-slate-400 italic">တာအိုလမ်းစဉ်မှ ကြိုဆိုပါသည်။ တိတ်ဆိတ်စွာ ကျင့်ကြံအားထုတ်မှု စတင်ပါ။</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MIDDLE ROW: Summary & Cultivation Orb -->
+    <div class="h-[18dvh] grid grid-cols-12 gap-2.5 flex-none mb-1">
+      
+      <!-- Summary Info -->
+      <div class="col-span-5 glass-panel rounded-xl p-3 flex flex-col justify-between text-[11px] relative overflow-hidden">
+        <div class="text-[10px] text-slate-400 border-b border-indigo-950/50 pb-1 flex-none flex items-center gap-1">
+          📊 အနှစ်ချုပ် အချက်အလက်
+        </div>
+        <div class="flex-grow flex flex-col justify-center gap-1 mt-1">
+          <div class="flex justify-between"><span class="text-slate-430">ပါရမီ:</span><span id="summary-talent" class="text-emerald-400 font-bold">သာမန်ခန္ဓာကိုယ်</span></div>
+          <div class="flex justify-between"><span class="text-slate-430">ကျင့်ကြံနှုန်း:</span><span id="summary-mult" class="text-cyan-400 font-semibold">(၁.၀) ဆ</span></div>
+          <div class="flex justify-between mt-1 pt-1 border-t border-slate-800/50"><span class="text-slate-500">မိုးကြိုးခံစစ်:</span><span id="summary-protect" class="text-sky-300 font-semibold">(၀) %</span></div>
+        </div>
+      </div>
+
+      <!-- Glowing Cultivation Orb -->
+      <div class="col-span-7 glass-panel rounded-xl p-1 flex items-center justify-center relative overflow-hidden group">
+        <!-- Floating numbers target area -->
+        <div id="click-effect-container" class="absolute inset-0 pointer-events-none z-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-cyan-950/10 to-teal-950/10 pointer-events-none"></div>
+
+        <div id="glowing-cultivate-orb" class="w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-950 via-cyan-700 to-emerald-500 shadow-[0_0_20px_rgba(6,182,212,0.3)] flex flex-col justify-center items-center text-center cursor-pointer select-none border border-cyan-400/30 glowing-orb-anim relative z-10 transition-transform active:scale-95 duration-100">
+          
+          <!-- Outer rotating decorative ring -->
+          <div class="absolute inset-0 -m-1 rounded-full border border-dashed border-cyan-300/20 rotating-ring pointer-events-none"></div>
+          <!-- Second reverse rotating decorative ring -->
+          <div class="absolute inset-0 -m-2 rounded-full border border-dotted border-teal-300/10 rotating-ring-reverse pointer-events-none"></div>
+
+          <div class="relative flex flex-col items-center">
+            <span class="text-[13px] text-slate-100 font-bold tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">ကျင့်ကြံခြင်း</span>
+            <span class="text-[9px] text-cyan-200/80 font-semibold tracking-wider uppercase mt-1">နှိပ်ပါ</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LOWER ROW: Tab Navigation & Scrollable Interaction Content -->
+    <div class="h-[49dvh] flex flex-col gap-1.5 flex-none overflow-hidden pb-12">
+      
+      <!-- Navigation Bars & Collapse Bag -->
+      <div class="flex justify-between items-center border-b border-slate-800 pb-1.5 flex-none">
+        <nav class="flex gap-1 overflow-x-auto no-scrollbar py-0.5">
+          <button id="tab-cultivate" class="tab-btn px-3 py-1.5 text-xs text-amber-400 border-b-2 border-amber-500 font-bold tracking-wide transition-all">ကျင့်ကြံ</button>
+          <button id="tab-alchemy" class="tab-btn px-3 py-1.5 text-xs text-slate-400 hover:text-slate-200 font-bold tracking-wide transition-all">ဆေးဖော်</button>
+          <button id="tab-sect" class="tab-btn px-3 py-1.5 text-xs text-slate-400 hover:text-slate-200 font-bold tracking-wide transition-all">ဂိုဏ်း</button>
+          <button id="tab-shop" class="tab-btn px-3 py-1.5 text-xs text-slate-400 hover:text-slate-200 font-bold tracking-wide transition-all">ဈေးဆိုင်</button>
+          <button id="tab-reincarnate" class="tab-btn px-3 py-1.5 text-xs text-slate-400 hover:text-slate-200 font-bold tracking-wide transition-all">သံသရာ</button>
+        </nav>
+        
+        <button id="btn-inventory-toggle" class="px-3 py-1.5 bg-slate-800/80 border border-slate-700 hover:border-amber-500/40 rounded-lg text-xs text-slate-200 hover:text-amber-300 transition-all font-semibold flex-none shadow-md flex items-center gap-1">
+          💼 ကျောပိုးအိတ်
+        </button>
+      </div>
+
+      <!-- Main Action Frame -->
+      <div class="flex-grow glass-panel rounded-2xl p-4 overflow-y-auto relative min-h-[160px] font-normal">
+        
+        <!-- Tab Pane: Cultivate -->
+        <div id="content-cultivate" class="tab-pane flex flex-col justify-between h-full gap-3">
+          <div class="flex flex-col gap-2">
+            <h3 class="text-sm text-amber-400 font-bold flex items-center gap-1.5">
+              🧘‍♂️ မဟာလမ်းစဉ်ကို နှလုံးသွင်းခြင်း
+            </h3>
+            <p class="text-slate-400 leading-relaxed text-[11px] bg-slate-950/40 border border-slate-900 p-2.5 rounded-lg">
+              တိတ်ဆိတ်ငြိမ်သက်စွာ ထိုင်လျက် လောကဓာတ်အနှံ့ ပျံ့လွင့်နေသော ဝိညာဉ်စွမ်းအင်များကို ဒမ်တန်အတွင်းသို့ စုစည်းနိုင်ပါသည်။ အလိုအလျောက် ကျင့်ကြံမှုကို အသုံးပြု၍ ရေရှည်ကျင့်ကြံမှုကို ဆောင်ရွက်နိုင်သည်။
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-2.5 mt-auto">
+            <button id="btn-auto-cultivate" class="h-11 bg-slate-950 hover:bg-slate-900/80 border border-slate-800 hover:border-cyan-500/30 rounded-xl flex justify-between items-center px-4 transition-all duration-300 shadow-inner group">
+              <span class="text-xs text-slate-200 font-semibold group-hover:text-cyan-400 transition-colors">အလိုအလျောက် ကျင့်ကြံခြင်း</span>
+              <span id="auto-status" class="text-[10px] bg-red-950/60 text-red-400 px-2 py-0.5 rounded-full border border-red-900/50 font-bold uppercase transition-all">ပိတ်ထားသည်</span>
+            </button>
+
+            <button id="btn-adventure" class="h-11 bg-gradient-to-r from-amber-950/30 to-rose-950/30 hover:from-amber-900/40 hover:to-orange-900/40 border border-amber-900/30 hover:border-amber-500/50 rounded-xl flex justify-between items-center px-4 transition-all duration-300 shadow-md">
+              <span class="text-xs text-amber-300 font-semibold">လျှို့ဝှက်နယ်မြေခရီးထွက်ခြင်း</span>
+              <span class="text-[10px] text-amber-400 bg-amber-950/50 border border-amber-900/40 px-2 py-0.5 rounded-full">အချိန်: (၆) လ</span>
+            </button>
+
+            <button id="btn-breakthrough" class="h-11 bg-gradient-to-r from-rose-900 to-rose-700 hover:from-rose-800 hover:to-rose-600 border border-rose-500/30 rounded-xl flex justify-center items-center gap-2 transition-all duration-300 shadow-[0_0_15px_rgba(244,63,94,0.35)] hidden animate-pulse">
+              <span class="text-xs text-white font-bold tracking-widest">မိုးကြိုးဘေးဒုက္ခ ခံယူရန် အသင့်ဖြစ်ပါပြီ ⚡</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Pane: Alchemy -->
+        <div id="content-alchemy" class="tab-pane hidden flex flex-col gap-3.5">
+          <div class="flex flex-col gap-1">
+            <h3 class="text-sm text-amber-400 font-bold">🔮 ဆေးဖော်စပ်ဖိုတော်</h3>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              လျှို့ဝှက်နယ်မြေမှ ရရှိလာသော ရှားပါးဆေးပင်များကို အသုံးပြု၍ ကျင့်ကြံမှုကို မြှင့်တင်နိုင်သော ဆေးလုံးများနှင့် မိုးကြိုးဘေးဒုက္ခကို ခုခံနိုင်သော ဆေးများကို ဖော်စပ်ပါ။
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-2.5">
+            <!-- Pill 1 -->
+            <div class="bg-slate-950/80 border border-slate-800 p-3 rounded-xl flex justify-between items-center gap-2 hover:border-emerald-500/20 transition-all">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-xs text-emerald-400 font-bold">🟢 ချီစုစည်းဆေးလုံး</span>
+                <span class="text-[10px] text-slate-400">ဝိညာဉ်ချီ (၂၅)% ဖြည့်ပေးမည်။ <span class="text-amber-500/80 font-bold">(လိုအပ်ချက်: ဆေးပင် ၂ ပင်)</span></span>
+              </div>
+              <button id="btn-craft-qi-pill" class="px-3 py-1.5 btn-gold rounded-lg text-xs font-bold">ဖော်စပ်</button>
+            </div>
+
+            <!-- Pill 2 -->
+            <div class="bg-slate-950/80 border border-slate-800 p-3 rounded-xl flex justify-between items-center gap-2 hover:border-sky-500/20 transition-all">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-xs text-sky-400 font-bold">🔵 မိုးကြိုးခံစစ်ဆေးလုံး</span>
+                <span class="text-[10px] text-slate-400">မိုးကြိုးဒဏ် (၄၀) ခုခံပေးမည်။ <span class="text-amber-500/80 font-bold">(လိုအပ်ချက်: ဆေးပင် ၅ ပင်)</span></span>
+              </div>
+              <button id="btn-craft-protect-pill" class="px-3 py-1.5 btn-gold rounded-lg text-xs font-bold">ဖော်စပ်</button>
+            </div>
+          </div>
+
+          <div class="mt-2 border-t border-slate-800 pt-3 flex flex-col gap-2">
+            <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">ဆေးလုံး လက်ငင်းအသုံးပြုရန်:</span>
+            <button id="btn-use-qi-pill" class="w-full py-2 bg-emerald-950/55 border border-emerald-500/35 text-xs text-emerald-300 hover:text-emerald-200 rounded-xl hover:bg-emerald-900/50 transition-all font-bold">
+              💊 ချီစုစည်းဆေး သောက်သုံးရန်
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Pane: Sect -->
+        <div id="content-sect" class="tab-pane hidden flex flex-col gap-3.5">
+          <h3 class="text-xs text-amber-400 font-bold uppercase tracking-wider pb-1.5 border-b border-indigo-950/50">ဂိုဏ်းတော် တည်ထောင်ခြင်း</h3>
+          
+          <div id="sect-lock-view" class="bg-slate-950/80 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center text-center gap-2 shadow-inner">
+            <svg class="w-8 h-8 text-rose-500 animate-pulse mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <span class="text-xs text-slate-300 font-bold">ဂိုဏ်းတည်ထောင်ခွင့် ပိတ်ထားဆဲ ဖြစ်သည် 🔒</span>
+            <span class="text-[10px] text-amber-500/90 font-medium">အနည်းဆုံး ရွှေအမြုတေအဆင့်သို့ တက်လှမ်းရန် လိုအပ်ပါသည်။</span>
+          </div>
+
+          <div id="sect-active-view" class="hidden flex flex-col gap-3.5">
+            <div class="grid grid-cols-2 gap-2.5 text-center">
+              <div class="bg-slate-950/80 border border-slate-800 p-3 rounded-xl">
+                <span class="text-[10px] text-slate-400">တပည့်စုစုပေါင်း</span>
+                <div id="sect-disciples" class="text-sm font-bold text-emerald-400">၀ ယောက်</div>
+              </div>
+              <div class="bg-slate-950/80 border border-slate-800 p-3 rounded-xl">
+                <span class="text-[10px] text-slate-400">ဝိညာဉ်ကျောက်တုံး ဝင်ငွေနှုန်း</span>
+                <div id="sect-income" class="text-sm font-bold text-amber-400">၀ ကျောက်တုံး/စက္ကန့်</div>
+              </div>
+            </div>
+
+            <button id="btn-recruit-disciple" class="w-full py-2.5 bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-500/30 text-xs text-emerald-300 hover:text-emerald-200 rounded-xl transition-all font-bold shadow-md">
+              🤝 ဂိုဏ်းဝင်တပည့်သစ် စုဆောင်းရန် (ကုန်ကျစရိတ်: သာမန်ကျောက်တုံး ၅၀)
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Pane: Shop -->
+        <div id="content-shop" class="tab-pane hidden flex flex-col gap-3.5">
+          <div class="flex flex-col gap-1">
+            <h3 class="text-sm text-amber-400 font-bold">💎 ဝိညာဉ်ဈေးဆိုင်တော်ကြီး</h3>
+            <p class="text-[10px] text-slate-400">
+              စုဆောင်းထားသော အဆင့်ဆင့်သော ဝိညာဉ်ကျောက်တုံးများကို အသုံးပြု၍ ရှားပါးမြတ်နိုးဖွယ်ရာများကို ဝယ်ယူပါ။
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-2.5 max-h-[200px] overflow-y-auto pr-1">
+            <!-- Shop Item 1 -->
+            <div class="bg-slate-950/90 border border-slate-800/80 p-3 rounded-xl flex justify-between items-center text-[11px] hover:border-amber-500/25 transition-all">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-emerald-400 font-bold">💧 နတ်ဘုရားဝိညာဉ်ရေစင်</span>
+                <span class="text-[9px] text-slate-400">ချီစွမ်းအင် (၅၀)% ချက်ချင်းပြည့်မည်။</span>
+              </div>
+              <button id="btn-buy-shop-1" class="px-2.5 py-1.5 bg-amber-950 hover:bg-amber-900 border border-amber-500/30 text-amber-200 rounded-lg text-[10px] font-bold transition-all shrink-0">
+                ဝယ် (အဆင့်နိမ့် ၅၀)
+              </button>
+            </div>
+
+            <!-- Shop Item 2 -->
+            <div class="bg-slate-950/90 border border-slate-800/80 p-3 rounded-xl flex justify-between items-center text-[11px] hover:border-amber-500/25 transition-all">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-cyan-400 font-bold">📖 ရှေးဟောင်းတာအိုကျမ်းစာ</span>
+                <span class="text-[9px] text-slate-400">ကျင့်ကြံနှုန်း အမြဲတမ်း (၁.၂) ဆ မြှင့်တင်မည်။</span>
+              </div>
+              <button id="btn-buy-shop-2" class="px-2.5 py-1.5 bg-amber-950 hover:bg-amber-900 border border-amber-500/30 text-amber-200 rounded-lg text-[10px] font-bold transition-all shrink-0">
+                ဝယ် (သာမန် ၅)
+              </button>
+            </div>
+
+            <!-- Shop Item 3 -->
+            <div class="bg-slate-950/90 border border-slate-800/80 p-3 rounded-xl flex justify-between items-center text-[11px] hover:border-amber-500/25 transition-all">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sky-400 font-bold">🛡️ ကောင်းကင်ဘုံကာကွယ်ရေးလက်နက်</span>
+                <span class="text-[9px] text-slate-400">မိုးကြိုးဒဏ်သင့်မှု (၁၀) လျှော့ချပေးမည်။</span>
+              </div>
+              <button id="btn-buy-shop-3" class="px-2.5 py-1.5 bg-amber-950 hover:bg-amber-900 border border-amber-500/30 text-amber-200 rounded-lg text-[10px] font-bold transition-all shrink-0">
+                ဝယ် (အလယ်အလတ် ၃)
+              </button>
+            </div>
+
+            <!-- Shop Item 4 -->
+            <div class="bg-slate-950/90 border border-slate-800/80 p-3 rounded-xl flex justify-between items-center text-[11px] hover:border-amber-500/25 transition-all">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-rose-400 font-bold">🍒 နိဗ္ဗာန်အသက်ဆက်ဆေးလုံး</span>
+                <span class="text-[9px] text-slate-400 font-normal">အသက်ရှင်နိုင်စွမ်း သက်တမ်းကို (၅၀၀) နှစ် တိုးစေမည်။</span>
+              </div>
+              <button id="btn-buy-shop-4" class="px-2.5 py-1.5 bg-amber-950 hover:bg-amber-900 border border-amber-500/30 text-amber-200 rounded-lg text-[10px] font-bold transition-all shrink-0">
+                ဝယ် (အဆင့်မြင့် ၁)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Pane: Reincarnate -->
+        <div id="content-reincarnate" class="tab-pane hidden flex flex-col gap-3.5">
+          <div class="flex flex-col gap-1">
+            <h3 class="text-sm text-purple-400 font-bold flex items-center gap-1.5">🌌 ကံကြမ္မာဝိညာဉ်ဝင်စားခြင်း</h3>
+            <p class="text-[10px] text-slate-400">
+              စုဆောင်းရရှိထားသော ကံကြမ္မာမှတ်များကို သုံး၍ မူလပါရမီ အဆင့်အတန်းမြင့်သော ခန္ဓာကိုယ်ကို ဝယ်ယူနိုင်ပါသည်။
+            </p>
+          </div>
+
+          <div class="bg-slate-950/80 border border-slate-800 p-2.5 rounded-xl flex flex-col gap-2 max-h-[160px] overflow-y-auto">
+            <!-- Talent 1 -->
+            <div class="border border-slate-800/60 p-2.5 rounded-lg flex justify-between items-center text-[11px] hover:border-purple-500/20 transition-all">
+              <div class="flex flex-col">
+                <span class="text-emerald-400 font-semibold">🧬 ဝိညာဉ်သွေးကြောထူးခြားသူ</span>
+                <span class="text-[9px] text-slate-400">ကျင့်ကြံနှုန်း (၁.၅) ဆ မြန်ဆန်စေသည်။</span>
+              </div>
+              <button id="btn-buy-talent-1" class="px-2.5 py-1.5 bg-purple-950 hover:bg-purple-900 border border-purple-500/30 text-[10px] text-purple-300 rounded-lg font-bold">ဝယ် (မှတ်: ၅)</button>
+            </div>
+
+            <!-- Talent 2 -->
+            <div class="border border-slate-800/60 p-2.5 rounded-lg flex justify-between items-center text-[11px] hover:border-purple-500/20 transition-all">
+              <div class="flex flex-col">
+                <span class="text-amber-400 font-semibold">☯️ တာအိုခန္ဓာကိုယ်</span>
+                <span class="text-[9px] text-slate-400">ကျင့်ကြံနှုန်း (၂.၅) ဆ မြန်ဆန်စေသည်။</span>
+              </div>
+              <button id="btn-buy-talent-2" class="px-2.5 py-1.5 bg-purple-950 hover:bg-purple-900 border border-purple-500/30 text-[10px] text-purple-300 rounded-lg font-bold">ဝယ် (မှတ်: ၁၅)</button>
+            </div>
+
+            <!-- Talent 3 -->
+            <div class="border border-slate-800/60 p-2.5 rounded-lg flex justify-between items-center text-[11px] hover:border-purple-500/20 transition-all">
+              <div class="flex flex-col">
+                <span class="text-rose-400 font-semibold">🌟 ကမ္ဘာဦးခန္ဓာကိုယ်</span>
+                <span class="text-[9px] text-slate-400">ကျင့်ကြံနှုန်း (၅) ဆ မြန်ဆန်စေသည်။</span>
+              </div>
+              <button id="btn-buy-talent-3" class="px-2.5 py-1.5 bg-purple-950 hover:bg-purple-900 border border-purple-500/30 text-[10px] text-purple-300 rounded-lg font-bold">ဝယ် (မှတ်: ၃၀)</button>
+            </div>
+          </div>
+
+          <button id="btn-force-reincarnate" class="w-full py-2 bg-rose-950/30 border border-rose-900/60 hover:bg-rose-900/60 text-rose-300 hover:text-white text-xs font-bold rounded-xl transition-all shadow-inner mt-1">
+            ⚠️ မိမိကိုယ်တိုင် ဝိညာဉ်ဝင်စားခြင်း စတင်မည်
+          </button>
+        </div>
+
+        <!-- COLLAPSIBLE INVENTORY OVERLAY PANE -->
+        <div id="inventory-overlay" class="absolute inset-0 bg-slate-950/98 z-30 p-4 flex flex-col justify-between hidden rounded-2xl animate-fade-in border border-amber-500/10">
+          
+          <div class="flex justify-between items-center border-b border-amber-500/20 pb-2 flex-none">
+            <span class="text-xs text-amber-400 font-bold flex items-center gap-1">💼 သင်၏ကျောပိုးအိတ် အချက်အလက်</span>
+            <button id="btn-inventory-close" class="text-xs text-slate-400 hover:text-amber-300 transition-colors">ပိတ်ရန်</button>
+          </div>
+          
+          <div class="flex-grow overflow-y-auto mt-2.5 flex flex-col gap-3 text-[11px]">
+            
+            <!-- Items Box -->
+            <div class="grid grid-cols-2 gap-2 bg-slate-900/40 p-3 rounded-xl border border-slate-800">
+              <div class="flex justify-between items-center bg-slate-950/50 p-1.5 rounded border border-slate-900">
+                <span class="text-slate-400">ရှားပါးဆေးပင်:</span>
+                <span id="inv-herbs" class="text-emerald-400 font-bold">၀ ပင်</span>
+              </div>
+              <div class="flex justify-between items-center bg-slate-950/50 p-1.5 rounded border border-slate-900">
+                <span class="text-slate-400">ချီစုစည်းဆေး:</span>
+                <span id="inv-pill-qi" class="text-cyan-400 font-bold">၀ လုံး</span>
+              </div>
+              <div class="flex justify-between items-center bg-slate-950/50 p-1.5 rounded border border-slate-900 col-span-2">
+                <span class="text-slate-400">မိုးကြိုးခံစစ်ဆေး:</span>
+                <span id="inv-pill-protect" class="text-sky-400 font-bold">၀ လုံး</span>
+              </div>
+            </div>
+
+            <!-- Stones Box (5 Tiers) -->
+            <div class="flex flex-col gap-1.5">
+              <span class="text-amber-400 text-[10px] font-bold uppercase tracking-wider">💎 ဝိညာဉ်ကျောက်တုံး လက်ကျန်များ</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                <div class="flex justify-between items-center bg-slate-900/50 px-2.5 py-1.5 rounded-lg border border-slate-800">
+                  <span class="text-slate-400 text-[10px]">အဆင့်နိမ့်ကျောက်တုံး:</span>
+                  <span id="stone-low" class="text-slate-300 font-medium">၀ တုံး</span>
+                </div>
+                <div class="flex justify-between items-center bg-slate-900/50 px-2.5 py-1.5 rounded-lg border border-slate-800">
+                  <span class="text-slate-400 text-[10px]">သာမန်ကျောက်တုံး:</span>
+                  <span id="stone-ordinary" class="text-emerald-400 font-medium">၀ တုံး</span>
+                </div>
+                <div class="flex justify-between items-center bg-slate-900/50 px-2.5 py-1.5 rounded-lg border border-slate-800">
+                  <span class="text-slate-400 text-[10px]">အလယ်အလတ်:</span>
+                  <span id="stone-mid" class="text-cyan-400 font-medium">၀ တုံး</span>
+                </div>
+                <div class="flex justify-between items-center bg-slate-900/50 px-2.5 py-1.5 rounded-lg border border-slate-800">
+                  <span class="text-slate-400 text-[10px]">အဆင့်မြင့်:</span>
+                  <span id="stone-high" class="text-sky-400 font-medium">၀ တုံး</span>
+                </div>
+                <div class="flex justify-between items-center bg-slate-900/50 px-2.5 py-1.5 rounded-lg border border-slate-800 col-span-1 sm:col-span-2">
+                  <span class="text-slate-400 text-[10px]">နတ်ဘုရားကျောက်တုံး:</span>
+                  <span id="stone-divine" class="text-purple-400 font-bold">၀ တုံး</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stone Fusion System -->
+            <div class="flex flex-col gap-1.5 border-t border-slate-800/60 pt-2 text-[10px]">
+              <span class="text-amber-400 font-bold uppercase tracking-wider">🔬 ဝိညာဉ်ကျောက်တုံးများ အဆင့်မြှင့်တင်ခြင်း (၁၀ -> ၁)</span>
+              <div class="grid grid-cols-2 gap-1.5">
+                <button id="btn-fuse-1" class="py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/20 text-[9px] rounded-lg text-slate-300 transition-all font-semibold">နိမ့် (၁၀) -> သာမန် (၁)</button>
+                <button id="btn-fuse-2" class="py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/20 text-[9px] rounded-lg text-slate-300 transition-all font-semibold">သာမန် (၁၀) -> လယ် (၁)</button>
+                <button id="btn-fuse-3" class="py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/20 text-[9px] rounded-lg text-slate-300 transition-all font-semibold">လယ် (၁၀) -> မြင့် (၁)</button>
+                <button id="btn-fuse-4" class="py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/20 text-[9px] rounded-lg text-slate-300 transition-all font-semibold">မြင့် (၁၀) -> နတ်ဘုရား (၁)</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Lightning Tribulation Screen Overlay -->
+  <div id="tribulation-screen" class="fixed inset-0 bg-slate-950/98 z-50 p-6 flex flex-col gap-4 text-center items-center justify-center hidden backdrop-blur-sm">
+    <div class="absolute inset-0 bg-red-950/15 pointer-events-none"></div>
+    <div class="lightning-fork pointer-events-none" id="red-lightning-effect"></div>
+
+    <h3 class="text-xl text-rose-500 font-extrabold animate-pulse uppercase tracking-widest flex items-center gap-2">
+      ⚡ ကောင်းကင်ဘေးဒုက္ခ ကျရောက်နေသည် ⚡
+    </h3>
+    <p id="tribulation-status" class="text-xs text-slate-300 max-w-xs leading-relaxed font-normal bg-slate-900/60 border border-red-500/20 p-3 rounded-xl shadow-inner">
+      ကောင်းကင်မိုးကြိုးဒဏ်ခတ်မှုများ စတင်လာပါပြီ။ ခန္ဓာကိုယ်ကြံ့ခိုင်မှုနှင့် ဆေးလုံးများပေါ်မူတည်၍ အသက်ရှင်သန်အောင် ဖြတ်ကျော်ပါ။
+    </p>
+    
+    <div class="flex gap-4 my-2.5 font-normal text-xs">
+      <div class="bg-slate-900 border border-slate-800/80 px-5 py-2.5 rounded-xl shadow-md">
+        <div class="text-[9px] text-slate-400 font-bold uppercase">မိုးကြိုးလှိုင်းများ</div>
+        <div id="trib-waves" class="text-base font-bold text-red-500 font-mono mt-0.5">၀/၃</div>
+      </div>
+      <div class="bg-slate-900 border border-slate-800/80 px-5 py-2.5 rounded-xl shadow-md">
+        <div class="text-[9px] text-slate-400 font-bold uppercase">ကျန်ရှိသော အသက်အား</div>
+        <div id="trib-health" class="text-base font-bold text-emerald-400 font-mono mt-0.5">၁၀၀%</div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2.5 w-full max-w-xs">
+      <button id="btn-trib-defend" class="py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 rounded-xl text-sm font-bold shadow-[0_4px_15px_rgba(245,158,11,0.3)] transition-all">
+        ဝိညာဉ်အကာအကွယ်ဖြင့် ခုခံမည် 🛡️
+      </button>
+      <button id="btn-trib-pill" class="py-3 bg-slate-900 hover:bg-slate-800/80 border border-sky-500/30 hover:border-sky-400 text-sm text-sky-400 rounded-xl font-bold transition-all flex justify-center items-center gap-1.5">
+        🔵 မိုးကြိုးခံစစ်ဆေးလုံး သုံးစွဲမည်
+      </button>
+    </div>
+  </div>
+
+  <!-- Death Modal -->
+  <div id="death-modal" class="fixed inset-0 bg-slate-950/98 z-50 flex items-center justify-center p-4 backdrop-blur-md hidden">
+    <div class="glass-panel rounded-2xl p-6 max-w-xs w-full flex flex-col gap-4 text-center shadow-[0_0_50px_rgba(239,68,68,0.15)] relative overflow-hidden">
+      <div class="absolute -top-10 -left-10 w-24 h-24 bg-red-500/10 rounded-full blur-2xl"></div>
+
+      <h2 class="text-lg text-rose-500 font-extrabold tracking-wider flex justify-center items-center gap-1.5">
+         💀 သက်တမ်းလွန်ကွယ်လွန်ခြင်း
+      </h2>
+      <p id="death-reason" class="text-xs text-slate-300 leading-relaxed bg-slate-950/40 border border-slate-900 p-3 rounded-lg">
+        သင်သည် အဆင့်မကျော်ဖြတ်နိုင်ဘဲ သက်တမ်းကုန်ဆုံးသွားသဖြင့် ကွယ်လွန်ခဲ့သည်။
+      </p>
+      
+      <div class="glass-panel p-3.5 rounded-xl border border-purple-500/10 flex justify-between items-center text-xs">
+        <span class="text-slate-400 font-medium">ရရှိခဲ့သော ကံကြမ္မာရမှတ်:</span>
+        <span id="death-karma-earned" class="text-purple-400 font-bold text-sm bg-purple-950/50 border border-purple-900/40 px-2 py-0.5 rounded">၀ မှတ်</span>
+      </div>
+
+      <button id="btn-reincarnation-confirm" class="w-full py-2.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-slate-100 rounded-xl text-xs font-bold shadow-[0_4px_15px_rgba(109,40,217,0.3)] transition-all">
+        ဝိညာဉ်ပြန်လည်ဝင်စားပြီး ဘဝသစ်စတင်မည် ✨
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // State management & Configuration Mapping
+    const mainLevels = [
+      { name: "ချီစုစည်းခြင်းအဆင့်", type: "sub10", maxQiBase: 100, maxAge: 100 },
+      { name: "အခြေတည်အဆင့်", type: "sub10", maxQiBase: 500, maxAge: 200 },
+      { name: "ရွှေအမြုတေအဆင့်", type: "sub10", maxQiBase: 2500, maxAge: 500 },
+      { name: "ဝိညာဉ်သန္ဓေတည်အဆင့်", type: "sub10", maxQiBase: 12000, maxAge: 1000 },
+      { name: "စိတ်ဝိညာဉ်အသွင်ပြောင်းခြင်းအဆင့်", type: "early-mid-late", maxQiBase: 60000, maxAge: 3000 },
+      { name: "လစ်ဟာမှုပေါင်းစပ်ခြင်းအဆင့်", type: "early-mid-late", maxQiBase: 300000, maxAge: 10000 },
+      { name: "ဒုက္ခဖြတ်ကျော်ခြင်းအဆင့်", type: "early-mid-late", maxQiBase: 1500000, maxAge: 30000 },
+      { name: "မြေကမ္ဘာအင်မော်တယ်အဆင့်", type: "early-mid-late", maxQiBase: 8000000, maxAge: 99999999 },
+      { name: "ကောင်းကင်အင်မော်တယ်အဆင့်", type: "early-mid-late", maxQiBase: 40000000, maxAge: 99999999 },
+      { name: "ရွှေရောင်အင်မော်တယ်အဆင့်", type: "early-mid-late", maxQiBase: 200000000, maxAge: 99999999 },
+      { name: "အင်မော်တယ်ဘုရင်အဆင့်", type: "early-mid-late", maxQiBase: 1000000000, maxAge: 99999999 },
+      { name: "အင်မော်တယ်ဧကရာဇ်အဆင့်", type: "early-mid-late", maxQiBase: 5000000000, maxAge: 99999999 },
+      { name: "ကံကြမ္မာသခင်အဆင့်", type: "single", maxQiBase: 30000000000, maxAge: 99999999 },
+      { name: "စကြဝဠာအထွတ်အထိပ်အဆင့်", type: "single", maxQiBase: 200000000000, maxAge: 99999999 },
+      { name: "ကမ္ဘာဦးအဆင့်", type: "single", maxQiBase: 1500000000000, maxAge: 99999999 },
+      { name: "အနန္တစကြာဝဠာအဆင့်", type: "single", maxQiBase: 10000000000000, maxAge: 99999999 },
+      { name: "ကာလဒေသအရှင်အဆင့်", type: "single", maxQiBase: 80000000000000, maxAge: 99999999 },
+      { name: "မဟာဗြဟ္မာအဆင့်", type: "single", maxQiBase: 600000000000000, maxAge: 99999999 },
+      { name: "ကံကြမ္မာချည်နှောင်ခြင်းအဆင့်", type: "single", maxQiBase: 5000000000000000, maxAge: 99999999 },
+      { name: "ထာဝရအလင်းအဆင့်", type: "single", maxQiBase: 40000000000000000, maxAge: 99999999 },
+      { name: "နိဗ္ဗာန်အနုမြူအဆင့်", type: "single", maxQiBase: 300000000000000000, maxAge: 99999999 },
+      { name: "မဟာလမ်းစဉ်ဧကရာဇ်အဆင့်", type: "single", maxQiBase: 2000000000000000000, maxAge: 99999999 },
+      { name: "ဒြပ်မဲ့နတ်ဘုရားအဆင့်", type: "single", maxQiBase: 10000000000000000000, maxAge: 99999999 },
+      { name: "အဆုံးမဲ့အထွတ်အထိပ်အဆင့်", type: "single", maxQiBase: 999999999999999999999, maxAge: 99999999 }
+    ];
+
+    const talents = {
+      0: { name: "သာမန်ခန္ဓာကိုယ်", qiMult: 1.0, protectBonus: 0, cost: 0 },
+      1: { name: "ဝိညာဉ်သွေးကြောထူးခြားသူ", qiMult: 1.5, protectBonus: 5, cost: 5 },
+      2: { name: "တာအိုခန္ဓာကိုယ်", qiMult: 2.5, protectBonus: 12, cost: 15 },
+      3: { name: "ကမ္ဘာဦးခန္ဓာကိုယ်", qiMult: 5.0, protectBonus: 25, cost: 30 }
+    };
+
+    let state = {
+      name: "လင်းဖန်",
+      gender: "အမျိုးသား",
+      ageYears: 16,
+      ageMonths: 0,
+      maxAge: 100,
+      qi: 0,
+      levelIdx: 0,
+      subLevelIdx: 0,
+      stonesLow: 0,
+      stonesOrdinary: 0,
+      stonesMid: 0,
+      stonesHigh: 0,
+      stonesDivine: 0,
+      karma: 0,
+      talentIdx: 0,
+      herbs: 0,
+      qiPills: 0,
+      protectPills: 0,
+      hasSect: false,
+      disciples: 0,
+      incomeRate: 0,
+      qiMultiplierBonus: 1.0,
+      tribulationShield: 0,
+      maxAgeBonus: 0
+    };
+
+    let autoTimer = null;
+    let sectTimer = null;
+    let tribActive = false;
+    let tribWave = 0;
+    let maxTribWaves = 3;
+    let tribHealth = 100;
+
+    // Formatting numerals in bracket (Burmese Format)
+    function bm(num) {
+      const map = {
+        '0': '၀', '1': '၁', '2': '၂', '3': '၃', '4': '၄',
+        '5': '၅', '6': '၆', '7': '၇', '8': '၈', '9': '၉'
+      };
+      const str = String(num).split('').map(char => map[char] || char).join('');
+      return `(${str})`;
+    }
+
+    function bmRaw(num) {
+      const map = {
+        '0': '၀', '1': '၁', '2': '၂', '3': '၃', '4': '၄',
+        '5': '၅', '6': '၆', '7': '၇', '8': '၈', '9': '၉'
+      };
+      return String(num).split('').map(char => map[char] || char).join('');
+    }
+
+    // Save Game State to localStorage
+    function saveGame() {
+      localStorage.setItem('xianxia_game_state_v1_2_native', JSON.stringify(state));
+      showSaveIndicator();
+    }
+
+    function showSaveIndicator() {
+      const text = document.getElementById('save-status-text');
+      text.textContent = "သိမ်းဆည်းပြီး";
+      text.style.color = "#34d399";
+    }
+
+    // Load Game State
+    function loadGame() {
+      const saved = localStorage.getItem('xianxia_game_state_v1_2_native');
+      if (saved) {
+        try {
+          state = JSON.parse(saved);
+          // Migrate schema compatibility if needed
+          if (state.stonesLow === undefined) state.stonesLow = state.spiritStones || 0;
+          if (state.stonesOrdinary === undefined) state.stonesOrdinary = 0;
+          if (state.stonesMid === undefined) state.stonesMid = 0;
+          if (state.stonesHigh === undefined) state.stonesHigh = 0;
+          if (state.stonesDivine === undefined) state.stonesDivine = 0;
+          if (state.qiMultiplierBonus === undefined) state.qiMultiplierBonus = 1.0;
+          if (state.tribulationShield === undefined) state.tribulationShield = 0;
+          if (state.maxAgeBonus === undefined) state.maxAgeBonus = 0;
+          return true;
+        } catch (e) {
+          console.error("သိမ်းဆည်းထားမှု ပြန်လည်ယူရန် မဖြစ်နိုင်ပါ");
+        }
+      }
+      return false;
+    }
+
+    // Add logging to World Log
+    function addLog(msg, type = "normal") {
+      const logBox = document.getElementById('game-log');
+      const div = document.createElement('div');
+      
+      let colorClass = "text-slate-350";
+      let icon = "🔹";
+      
+      if (type === "success") { colorClass = "text-emerald-400 font-bold"; icon = "🎉"; }
+      if (type === "danger") { colorClass = "text-rose-400 font-bold animate-pulse"; icon = "⚡"; }
+      if (type === "info") { colorClass = "text-amber-400 font-semibold"; icon = "🌟"; }
+      if (type === "system") { colorClass = "text-purple-400 font-medium"; icon = "☯️"; }
+
+      div.className = `${colorClass} py-1 border-b border-slate-900/40 text-[11px] leading-relaxed transition-all duration-300 opacity-0 translate-x-2`;
+      div.textContent = `${icon} ${msg}`;
+      
+      logBox.appendChild(div);
+      setTimeout(() => {
+        div.classList.remove('opacity-0', 'translate-x-2');
+        div.classList.add('opacity-100', 'translate-x-0');
+      }, 20);
+      
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // Floating text feedback (+Qi)
+    function spawnFloatingText(text, colorClass = "text-cyan-400") {
+      const container = document.getElementById('click-effect-container');
+      const el = document.createElement('span');
+      el.className = `absolute text-xs font-bold tracking-widest ${colorClass} floating-text`;
+      el.textContent = text;
+      
+      // Spawn within random radius of the clicking region
+      const rect = document.getElementById('glowing-cultivate-orb').getBoundingClientRect();
+      const parentRect = container.getBoundingClientRect();
+      const x = rect.left - parentRect.left + rect.width / 2 + (Math.random() * 40 - 20);
+      const y = rect.top - parentRect.top + rect.height / 2 + (Math.random() * 20 - 10);
+      
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 1200);
+    }
+
+    // Get Realm Display Title
+    function getRealmName(lvlIdx, subLvlIdx) {
+      const lvl = mainLevels[lvlIdx];
+      if (!lvl) return "မသိရသောအဆင့်";
+      
+      if (lvl.type === "sub10") {
+        return `${lvl.name} ${bm(subLvlIdx + 1)}`;
+      } else if (lvl.type === "early-mid-late") {
+        const stage = subLvlIdx === 0 ? "အစောပိုင်း" : subLvlIdx === 1 ? "အလယ်ပိုင်း" : "နှောင်းပိုင်း";
+        return `${lvl.name} (${stage})`;
+      } else {
+        return lvl.name;
+      }
+    }
+
+    // Calculate maximum Qi requirement
+    function getMaxQi(lvlIdx, subLvlIdx) {
+      const lvl = mainLevels[lvlIdx];
+      if (lvl.type === "sub10") {
+        return lvl.maxQiBase * (subLvlIdx + 1);
+      } else if (lvl.type === "early-mid-late") {
+        return lvl.maxQiBase * (subLvlIdx + 1) * 2;
+      } else {
+        return lvl.maxQiBase;
+      }
+    }
+
+    // Check Lifespan bounds
+    function updateMaxAge() {
+      const lvl = mainLevels[state.levelIdx];
+      state.maxAge = lvl.maxAge + state.maxAgeBonus;
+    }
+
+    // Verify if major breakthrough is waiting
+    function checkMajorBreakthroughStatus() {
+      const currentLvl = mainLevels[state.levelIdx];
+      let isMajorBreakthrough = false;
+      
+      if (currentLvl.type === "sub10" && state.subLevelIdx === 9) {
+        isMajorBreakthrough = true;
+      } else if (currentLvl.type === "early-mid-late" && state.subLevelIdx === 2) {
+        isMajorBreakthrough = true;
+      } else if (currentLvl.type === "single") {
+        isMajorBreakthrough = true;
+      }
+      return isMajorBreakthrough;
+    }
+
+    // Render global values
+    function updateUI() {
+      document.getElementById('char-name').textContent = state.name;
+      document.getElementById('char-gender').textContent = state.gender;
+      document.getElementById('char-age').textContent = `${bm(state.ageYears)} နှစ် ${bm(state.ageMonths)} လ`;
+      
+      updateMaxAge();
+      const ageLimitDisplay = state.maxAge > 90000000 ? "ထာဝရသက်တမ်း" : `${bm(state.maxAge)} နှစ်`;
+      document.getElementById('char-max-age').textContent = ageLimitDisplay;
+      document.getElementById('char-karma').textContent = `${bm(state.karma)} မှတ်`;
+
+      const realmStr = getRealmName(state.levelIdx, state.subLevelIdx);
+      document.getElementById('char-realm').textContent = `☯️ ${realmStr}`;
+      
+      const currentMaxQi = getMaxQi(state.levelIdx, state.subLevelIdx);
+      document.getElementById('qi-text').textContent = `${bm(state.qi)} / ${bm(currentMaxQi)}`;
+      
+      const barPercent = Math.min(100, (state.qi / currentMaxQi) * 100);
+      document.getElementById('qi-bar').style.width = `${barPercent}%`;
+
+      // Multipliers Info Display
+      const talentObj = talents[state.talentIdx];
+      const finalMult = (talentObj.qiMult * state.qiMultiplierBonus).toFixed(1);
+      
+      document.getElementById('summary-talent').textContent = talentObj.name;
+      document.getElementById('summary-mult').textContent = `(${bmRaw(finalMult)}) ဆ`;
+      document.getElementById('summary-protect').textContent = `+${bmRaw(talentObj.protectBonus + state.tribulationShield)}%`;
+
+      // Inventory view bindings
+      document.getElementById('inv-herbs').textContent = `${bm(state.herbs)} ပင်`;
+      document.getElementById('inv-pill-qi').textContent = `${bm(state.qiPills)} လုံး`;
+      document.getElementById('inv-pill-protect').textContent = `${bm(state.protectPills)} လုံး`;
+      
+      document.getElementById('stone-low').textContent = `${bm(state.stonesLow)} တုံး`;
+      document.getElementById('stone-ordinary').textContent = `${bm(state.stonesOrdinary)} တုံး`;
+      document.getElementById('stone-mid').textContent = `${bm(state.stonesMid)} တုံး`;
+      document.getElementById('stone-high').textContent = `${bm(state.stonesHigh)} တုံး`;
+      document.getElementById('stone-divine').textContent = `${bm(state.stonesDivine)} တုံး`;
+
+      // Lock status of Sect View
+      if (state.levelIdx >= 2) {
+        document.getElementById('sect-lock-view').classList.add('hidden');
+        document.getElementById('sect-active-view').classList.remove('hidden');
+      } else {
+        document.getElementById('sect-lock-view').classList.remove('hidden');
+        document.getElementById('sect-active-view').classList.add('hidden');
+      }
+
+      document.getElementById('sect-disciples').textContent = `${bm(state.disciples)} ယောက်`;
+      document.getElementById('sect-income').textContent = `${bm(state.incomeRate)} တုံး/စက္ကန့်`;
+
+      // Major breakthrough validation
+      const bthBtn = document.getElementById('btn-breakthrough');
+      const isMajorBreakthrough = checkMajorBreakthroughStatus();
+
+      if (isMajorBreakthrough && state.qi >= currentMaxQi) {
+        bthBtn.classList.remove('hidden');
+      } else {
+        bthBtn.classList.add('hidden');
+      }
+    }
+
+    // Increment time sequence
+    function addTime(months) {
+      state.ageMonths += months;
+      if (state.ageMonths >= 12) {
+        const addedYears = Math.floor(state.ageMonths / 12);
+        state.ageYears += addedYears;
+        state.ageMonths = state.ageMonths % 12;
+        addLog(`သင်သည် သက်တမ်းတစ်ခုကို ဖြတ်သန်းခဲ့ပြီး အသက် ${bm(state.ageYears)} နှစ်သို့ ရောက်ရှိလာသည်။`, "normal");
+      }
+
+      if (state.ageYears >= state.maxAge) {
+        triggerDeath();
+      }
+    }
+
+    // Trigger death modal
+    function triggerDeath() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+        document.getElementById('auto-status').textContent = "ပိတ်ထားသည်";
+        document.getElementById('auto-status').className = "text-[10px] bg-red-950/60 text-red-400 px-2 py-0.5 rounded-full border border-red-900/50 font-bold uppercase";
+      }
+
+      const karmaGained = Math.max(1, (state.levelIdx * 5) + Math.floor(state.ageYears / 50));
+      state.karma += karmaGained;
+      
+      document.getElementById('death-reason').textContent = `သင်သည် ${getRealmName(state.levelIdx, state.subLevelIdx)} တွင် ရုန်းကန်ရင်း အသက် ${bm(state.ageYears)} နှစ်အရွယ်တွင် ခန္ဓာကိုယ် ပျက်စီးကာ ကွယ်လွန်ခဲ့သည်။`;
+      document.getElementById('death-karma-earned').textContent = `${bm(karmaGained)} မှတ်`;
+      
+      document.getElementById('death-modal').classList.remove('hidden');
+      saveGame();
+    }
+
+    document.getElementById('btn-reincarnation-confirm').addEventListener('click', () => {
+      document.getElementById('death-modal').classList.add('hidden');
+      
+      state.ageYears = 16;
+      state.ageMonths = 0;
+      state.qi = 0;
+      state.levelIdx = 0;
+      state.subLevelIdx = 0;
+      state.stonesLow = 0;
+      state.stonesOrdinary = 0;
+      state.stonesMid = 0;
+      state.stonesHigh = 0;
+      state.stonesDivine = 0;
+      state.herbs = 0;
+      state.qiPills = 0;
+      state.protectPills = 0;
+      state.hasSect = false;
+      state.disciples = 0;
+      state.incomeRate = 0;
+      state.qiMultiplierBonus = 1.0;
+      state.maxAgeBonus = 0;
+
+      // Keep acquired talent bonus upon rebirth
+      document.getElementById('creation-modal').classList.remove('hidden');
+      
+      const currentTalent = talents[state.talentIdx];
+      document.getElementById('talent-info').textContent = `🧬 ${currentTalent.name} (ကျင့်ကြံနှုန်း ${bmRaw(currentTalent.qiMult)} ဆ)`;
+      
+      updateUI();
+      addLog("သင်၏ဝိညာဉ်သည် သံသရာမှ ရုန်းထွက်ပြီး ဘဝသစ်တစ်ခုသို့ ပြန်လည်မွေးဖွားလာခဲ့သည်။", "system");
+    });
+
+    // Execute core meditation action
+    function executeMeditation() {
+      const talentObj = talents[state.talentIdx];
+      const qiGain = Math.floor(10 * talentObj.qiMult * state.qiMultiplierBonus);
+      
+      // Floating text micro effect
+      spawnFloatingText(`+${bmRaw(qiGain)} ချီ`, "text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]");
+      
+      addQi(qiGain);
+      addTime(1);
+      saveGame();
+    }
+
+    // Accumulate Qi with automatic minor breakthrough logic
+    function addQi(amount) {
+      let currentMaxQi = getMaxQi(state.levelIdx, state.subLevelIdx);
+      state.qi += amount;
+
+      while (state.qi >= currentMaxQi) {
+        const isMajorBreakthrough = checkMajorBreakthroughStatus();
+        
+        if (isMajorBreakthrough) {
+          state.qi = currentMaxQi;
+          addLog("ချီစွမ်းအင် အထွတ်အထိပ်သို့ ရောက်ရှိသွားခဲ့ပြီ။ အဆင့်ကျော်ဖြတ်ရန် မိုးကြိုးဘေးဒုက္ခ ခံယူရန် လိုအပ်သည်။", "info");
+          break;
+        } else {
+          state.qi -= currentMaxQi;
+          state.subLevelIdx++;
+          addLog(`သင်သည် ကျင့်ကြံခြင်းအဆင့် ${getRealmName(state.levelIdx, state.subLevelIdx)} Thို့ အလိုအလျောက် တက်လှမ်းသွားခဲ့သည်။`, "success");
+          currentMaxQi = getMaxQi(state.levelIdx, state.subLevelIdx);
+        }
+      }
+      updateUI();
+    }
+
+    // Exploring Adventure with tier-based stone drops
+    function executeAdventure() {
+      addTime(6);
+      
+      const successChance = 0.75;
+      if (Math.random() < successChance) {
+        const herbGained = Math.floor(Math.random() * 3) + 1;
+        state.herbs += herbGained;
+
+        // Custom stone drops based on major level index
+        let stoneQty = Math.floor(Math.random() * 15) + 5;
+        let logMsg = "";
+
+        if (state.levelIdx === 0) { // Qi Condensation
+          state.stonesLow += stoneQty;
+          logMsg = `အဆင့်နိမ့် ဝိညာဉ်ကျောက်တုံး ${bm(stoneQty)} တုံး`;
+          spawnFloatingText(`+${bmRaw(stoneQty)} Low-Tier`, "text-slate-300");
+        } else if (state.levelIdx === 1) { // Foundation Establishment
+          const split = Math.floor(stoneQty * 0.3);
+          state.stonesLow += (stoneQty - split);
+          state.stonesOrdinary += split;
+          logMsg = `အဆင့်နိမ့်ကျောက်တုံး ${bm(stoneQty - split)} တုံးနှင့် သာမန်ကျောက်တုံး ${bm(split)} တုံး`;
+          spawnFloatingText(`+${bmRaw(split)} Ordinary`, "text-emerald-400");
+        } else if (state.levelIdx === 2) { // Core Formation
+          const split = Math.floor(stoneQty * 0.4);
+          state.stonesOrdinary += (stoneQty - split);
+          state.stonesMid += split;
+          logMsg = `သာမန်ကျောက်တုံး ${bm(stoneQty - split)} တုံးနှင့် အလယ်အလတ်ကျောက်တုံး ${bm(split)} တုံး`;
+          spawnFloatingText(`+${bmRaw(split)} Mid-Tier`, "text-cyan-400");
+        } else if (state.levelIdx === 3) { // Nascent Soul
+          const split = Math.floor(stoneQty * 0.3);
+          state.stonesMid += (stoneQty - split);
+          state.stonesHigh += split;
+          logMsg = `အလယ်အလတ်ကျောက်တုံး ${bm(stoneQty - split)} တုံးနှင့် အဆင့်မြင့်ကျောက်တုံး ${bm(split)} တုံး`;
+          spawnFloatingText(`+${bmRaw(split)} High-Tier`, "text-sky-400");
+        } else { // High tiers
+          const split = Math.floor(stoneQty * 0.2);
+          state.stonesHigh += (stoneQty - split);
+          state.stonesDivine += split;
+          logMsg = `အဆင့်မြင့်ကျောက်တုံး ${bm(stoneQty - split)} တုံးနှင့် နတ်ဘုရားကျောက်တုံး ${bm(split)} တုံး`;
+          spawnFloatingText(`+${bmRaw(split)} Divine`, "text-purple-400");
+        }
+        
+        addLog(`လျှို့ဝှက်နယ်မြေခရီးမှ ဆေးပင် ${bm(herbGained)} ပင်နှင့် ${logMsg} အောင်မြင်စွာ ရရှိခဲ့သည်။`, "success");
+      } else {
+        const currentMaxQi = getMaxQi(state.levelIdx, state.subLevelIdx);
+        const qiLoss = Math.floor(currentMaxQi * 0.1);
+        state.qi = Math.max(0, state.qi - qiLoss);
+        
+        addLog("လျှို့ဝှက်နယ်မြေတွင်းရှိ သားရဲဆိုးတစ်ကောင်နှင့် ရင်ဆိုင်ခဲ့ရပြီး ဒဏ်ရာရကာ ချီစွမ်းအင်အချို့ ဆုံးရှုံးခဲ့သည်။", "danger");
+      }
+      updateUI();
+      saveGame();
+    }
+
+    // Trigger breakthrough actions
+    function executeBreakthrough() {
+      const currentMaxQi = getMaxQi(state.levelIdx, state.subLevelIdx);
+      if (state.qi < currentMaxQi) return;
+
+      const isMajorBreakthrough = checkMajorBreakthroughStatus();
+      if (isMajorBreakthrough) {
+        startTribulation();
+      }
+    }
+
+    // Activate lightning tribulation overlay
+    function startTribulation() {
+      tribActive = true;
+      tribWave = 0;
+      maxTribWaves = 3 + state.levelIdx;
+      tribHealth = 100;
+      
+      document.getElementById('tribulation-screen').classList.remove('hidden');
+      addLog("ကောင်းကင်ဘုံသည် သင့်အပေါ်သို့ မျက်နှာမူကာ ဒေါသအမျက်ရှပြီး မိုးကြိုးလှိုင်းများကို စတင်စေလွှတ်လိုက်ပြီဖြစ်သည်။", "danger");
+      updateTribulationUI();
+    }
+
+    function updateTribulationUI() {
+      document.getElementById('trib-waves').textContent = `${bm(tribWave)} / ${bm(maxTribWaves)}`;
+      document.getElementById('trib-health').textContent = `${bm(tribHealth)}%`;
+    }
+
+    function defendTribulationWave(usePill = false) {
+      if (!tribActive) return;
+
+      // Flash & Shake Effects
+      document.body.classList.add('lightning-active', 'shake-active');
+      const redLightning = document.getElementById('red-lightning-effect');
+      redLightning.style.opacity = '1';
+      
+      setTimeout(() => {
+        document.body.classList.remove('lightning-active', 'shake-active');
+        redLightning.style.opacity = '0';
+      }, 400);
+
+      tribWave++;
+      
+      const talentObj = talents[state.talentIdx];
+      let damage = 25 + (state.levelIdx * 5);
+      
+      let protection = talentObj.protectBonus + state.tribulationShield;
+      if (usePill) {
+        protection += 40;
+        state.protectPills--;
+      }
+
+      damage = Math.max(10, damage - protection);
+      tribHealth -= damage;
+
+      if (tribHealth <= 0) {
+        addLog("မိုးကြိုးဒဏ်ကြောင့် ခန္ဓာကိုယ်တစ်ခုလုံး ပြာအဖြစ်ပြောင်းလဲကာ ဝိညာဉ် ပျက်စီးခဲ့ရသည်။", "danger");
+        endTribulation(false);
+        triggerDeath();
+      } else if (tribWave >= maxTribWaves) {
+        endTribulation(true);
+      } else {
+        addLog(`မိုးကြိုးလှိုင်း ${bm(tribWave)} ကို ခုခံပြီးနောက် သင့်ခန္ဓာကိုယ်တွင် အသက်စွမ်းအား ${bm(tribHealth)}% ကျန်ရှိသည်။`, "info");
+        updateTribulationUI();
+        updateUI();
+      }
+    }
+
+    function endTribulation(success) {
+      tribActive = false;
+      document.getElementById('tribulation-screen').classList.add('hidden');
+      
+      if (success) {
+        state.qi = 0;
+        state.subLevelIdx = 0;
+        state.levelIdx++;
+        addLog(`ဂုဏ်ယူပါသည်။ သင်သည် ကောင်းကင်မိုးကြိုးဒဏ်ခတ်မှုကို ခံနိုင်ရည်ရှိစွာ ကျော်ဖြတ်ပြီး ကျင့်ကြံခြင်းအဆင့်သစ် ${getRealmName(state.levelIdx, state.subLevelIdx)} သို့ တက်လှမ်းနိုင်ခဲ့သည်။`, "success");
+      }
+      updateUI();
+      saveGame();
+    }
+
+    // Click Orb event
+    document.getElementById('glowing-cultivate-orb').addEventListener('click', () => {
+      if (tribActive) return;
+      executeMeditation();
+    });
+
+    // Adventure Click
+    document.getElementById('btn-adventure').addEventListener('click', () => {
+      if (tribActive) return;
+      executeAdventure();
+    });
+
+    // Breakthrough Click
+    document.getElementById('btn-breakthrough').addEventListener('click', () => {
+      if (tribActive) return;
+      executeBreakthrough();
+    });
+
+    // Tribulation actions
+    document.getElementById('btn-trib-defend').addEventListener('click', () => {
+      defendTribulationWave(false);
+    });
+
+    document.getElementById('btn-trib-pill').addEventListener('click', () => {
+      if (state.protectPills > 0) {
+        defendTribulationWave(true);
+      } else {
+        addLog("သင့်ထံတွင် မိုးကြိုးခံစစ်ဆေးလုံး မရှိတော့ပါ။", "danger");
+      }
+    });
+
+    // Toggle Collapsible Inventory view
+    document.getElementById('btn-inventory-toggle').addEventListener('click', () => {
+      const overlay = document.getElementById('inventory-overlay');
+      overlay.classList.toggle('hidden');
+      updateUI();
+    });
+
+    document.getElementById('btn-inventory-close').addEventListener('click', () => {
+      document.getElementById('inventory-overlay').classList.add('hidden');
+    });
+
+    // Tab view selection controller
+    const tabs = ['cultivate', 'alchemy', 'sect', 'shop', 'reincarnate'];
+    tabs.forEach(tab => {
+      document.getElementById(`tab-${tab}`).addEventListener('click', () => {
+        if (tribActive) {
+          addLog("ကောင်းကင်ဘေးဒုက္ခ ကျရောက်နေချိန်တွင် တခြားနေရာသို့ မသွားနိုင်ပါ။", "danger");
+          return;
+        }
+
+        document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.className = "tab-btn px-3 py-1.5 text-xs text-slate-400 hover:text-slate-200 font-bold tracking-wide transition-all";
+        });
+
+        document.getElementById(`content-${tab}`).classList.remove('hidden');
+        document.getElementById(`tab-${tab}`).className = "tab-btn px-3 py-1.5 text-xs text-amber-400 border-b-2 border-amber-500 font-bold tracking-wide transition-all";
+      });
+    });
+
+    // Start Game Initialization
+    document.getElementById('btn-start-game').addEventListener('click', () => {
+      const nameInp = document.getElementById('input-name').value.trim();
+      const genderInp = document.getElementById('input-gender').value;
+      const ageInp = parseInt(document.getElementById('input-age').value);
+
+      if (nameInp) state.name = nameInp;
+      state.gender = genderInp;
+      if (ageInp >= 16) state.ageYears = ageInp;
+
+      document.getElementById('creation-modal').classList.add('hidden');
+      addLog(`ကျင့်ကြံသူ ${state.name} သည် အသက် ${bm(state.ageYears)} နှစ်အရွယ်တွင် တာအိုလမ်းစဉ်ကို စတင်လျှောက်လှမ်းလာခဲ့သည်။`, "info");
+      updateUI();
+      saveGame();
+    });
+
+    // Clear world logs
+    document.getElementById('btn-clear-log').addEventListener('click', () => {
+      document.getElementById('game-log').innerHTML = '';
+      addLog("မှတ်တမ်းများအား သန့်စင်ပြီးပါပြီ။", "system");
+    });
+
+    // Crafting logic
+    document.getElementById('btn-craft-qi-pill').addEventListener('click', () => {
+      if (state.herbs >= 2) {
+        state.herbs -= 2;
+        state.qiPills++;
+        addLog("ချီစုစည်းဆေးလုံး (၁) လုံးကို အောင်မြင်စွာ ဖော်စပ်နိုင်ခဲ့သည်။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("ဆေးဖော်စပ်ရန် ဆေးပင်မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-craft-protect-pill').addEventListener('click', () => {
+      if (state.herbs >= 5) {
+        state.herbs -= 5;
+        state.protectPills++;
+        addLog("မိုးကြိုးခံစစ်ဆေးလုံး (၁) လုံးကို အောင်မြင်စွာ ဖော်စပ်နိုင်ခဲ့သည်။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("ဆေးဖော်စပ်ရန် ဆေးပင်မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    // Use pill actions
+    document.getElementById('btn-use-qi-pill').addEventListener('click', () => {
+      if (state.qiPills > 0) {
+        state.qiPills--;
+        const maxQi = getMaxQi(state.levelIdx, state.subLevelIdx);
+        const qiBoost = Math.floor(maxQi * 0.25);
+        addQi(qiBoost);
+        addLog(`ချီစုစည်းဆေးလုံးကို သောက်သုံးခဲ့ပြီး ချီစွမ်းအင် ${bm(qiBoost)} ရရှိခဲ့သည်။`, "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("သင့်ထံတွင် ချီစုစည်းဆေးလုံး မရှိပါ။", "danger");
+      }
+    });
+
+    // Recruiting Sect disciples (Ordinary spirit stones based)
+    document.getElementById('btn-recruit-disciple').addEventListener('click', () => {
+      if (state.stonesOrdinary >= 50) {
+        state.stonesOrdinary -= 50;
+        state.disciples++;
+        state.incomeRate = state.disciples * 1;
+        addLog("သစ္စာရှိသော ဂိုဏ်းတပည့်အသစ် (၁) ဦးကို သိမ်းသွင်းနိုင်ခဲ့သည်။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("တပည့်စုဆောင်းရန် သာမန်ဝိညာဉ်ကျောက်တုံး မလုံလောက်ပါ။ (၅၀ တုံး လိုအပ်ပါသည်)", "danger");
+      }
+    });
+
+    // Shop item purchases
+    document.getElementById('btn-buy-shop-1').addEventListener('click', () => {
+      if (state.stonesLow >= 50) {
+        state.stonesLow -= 50;
+        const currentMaxQi = getMaxQi(state.levelIdx, state.subLevelIdx);
+        const boost = Math.floor(currentMaxQi * 0.5);
+        addQi(boost);
+        addLog(`နတ်ဘုရားဝိညာဉ်ရေစင်ကို သောက်သုံးခဲ့ပြီး ချီစွမ်းအင် ${bm(boost)} ချက်ချင်း ရရှိခဲ့သည်။`, "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("အဆင့်နိမ့်ဝိညာဉ်ကျောက်တုံး မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-buy-shop-2').addEventListener('click', () => {
+      if (state.stonesOrdinary >= 5) {
+        state.stonesOrdinary -= 5;
+        state.qiMultiplierBonus += 0.2;
+        addLog("ရှေးဟောင်းတာအိုကျမ်းစာကို လေ့လာခဲ့ပြီးနောက် ကျင့်ကြံနှုန်း ပိုမိုမြန်ဆန်လာခဲ့သည်။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("သာမန်ဝိညာဉ်ကျောက်တုံး မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-buy-shop-3').addEventListener('click', () => {
+      if (state.stonesMid >= 3) {
+        state.stonesMid -= 3;
+        state.tribulationShield += 10;
+        addLog("ကောင်းကင်ဘုံကာကွယ်ရေးလက်နက်ကို တပ်ဆင်လိုက်ပြီဖြစ်ရာ မိုးကြိုးဒဏ်ခံနိုင်ရည် တိုးပွားလာခဲ့သည်။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("အလယ်အလတ်ဝိညာဉ်ကျောက်တုံး မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-buy-shop-4').addEventListener('click', () => {
+      if (state.stonesHigh >= 1) {
+        state.stonesHigh -= 1;
+        state.maxAgeBonus += 500;
+        addLog("နိဗ္ဗာန်အသက်ဆက်ဆေးလုံးကို သုံးစွဲလိုက်ပြီဖြစ်ရာ သင်၏အသက်ရှင်နိုင်စွမ်း သက်တမ်း ပိုမိုတိုးပွားသွားခဲ့သည်။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("အဆင့်မြင့်ဝိညာဉ်ကျောက်တုံး မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    // Auto Cultivate control toggler
+    document.getElementById('btn-auto-cultivate').addEventListener('click', () => {
+      const autoStatusText = document.getElementById('auto-status');
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+        autoStatusText.textContent = "ပိတ်ထားသည်";
+        autoStatusText.className = "text-[10px] bg-red-950/60 text-red-400 px-2 py-0.5 rounded-full border border-red-900/50 font-bold uppercase transition-all";
+        addLog("အလိုအလျောက် ကျင့်ကြံခြင်းကို ရပ်တန့်ခဲ့သည်။", "system");
+      } else {
+        autoTimer = setInterval(() => {
+          if (tribActive) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+            autoStatusText.textContent = "ပိတ်ထားသည်";
+            autoStatusText.className = "text-[10px] bg-red-950/60 text-red-400 px-2 py-0.5 rounded-full border border-red-900/50 font-bold uppercase transition-all";
+            return;
+          }
+          const maxQi = getMaxQi(state.levelIdx, state.subLevelIdx);
+          if (state.qi < maxQi) {
+            executeMeditation();
+          } else {
+            addLog("ချီစွမ်းအင် ပြည့်ဝနေသဖြင့် အလိုအလျောက်ကျင့်ကြံမှုကို ခေတ္တရပ်ဆိုင်းထားသည်။ မိုးကြိုးဘေးဒုက္ခ ခံယူရန် ပြင်ဆင်ပါ။", "info");
+            clearInterval(autoTimer);
+            autoTimer = null;
+            autoStatusText.textContent = "ပိတ်ထားသည်";
+            autoStatusText.className = "text-[10px] bg-red-950/60 text-red-400 px-2 py-0.5 rounded-full border border-red-900/50 font-bold uppercase transition-all";
+          }
+        }, 1200);
+        autoStatusText.textContent = "ဖွင့်ထားသည်";
+        autoStatusText.className = "text-[10px] bg-emerald-950/60 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-900/50 font-bold uppercase transition-all animate-pulse";
+        addLog("အလိုအလျောက် ကျင့်ကြံခြင်းကို စတင်လိုက်သည်။", "system");
+      }
+    });
+
+    // Stone Fusing Actions
+    document.getElementById('btn-fuse-1').addEventListener('click', () => {
+      if (state.stonesLow >= 10) {
+        state.stonesLow -= 10;
+        state.stonesOrdinary += 1;
+        addLog("အဆင့်နိမ့် ဝိညာဉ်ကျောက်တုံး (၁၀) တုံးကို သာမန်ကျောက်တုံး (၁) တုံးအဖြစ် ပေါင်းစပ်ပြီးပြီ။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("အဆင့်နိမ့်ကျောက်တုံး မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-fuse-2').addEventListener('click', () => {
+      if (state.stonesOrdinary >= 10) {
+        state.stonesOrdinary -= 10;
+        state.stonesMid += 1;
+        addLog("သာမန် ဝိညာဉ်ကျောက်တုံး (၁၀) တုံးကို အလယ်အလတ်ကျောက်တုံး (၁) တုံးအဖြစ် ပေါင်းစပ်ပြီးပြီ။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("သာမန်ကျောက်တုံး မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-fuse-3').addEventListener('click', () => {
+      if (state.stonesMid >= 10) {
+        state.stonesMid -= 10;
+        state.stonesHigh += 1;
+        addLog("အလယ်အလတ်ကျောက်တုံး (၁၀) တုံးကို အဆင့်မြင့်ကျောက်တုံး (၁) တုံးအဖြစ် ပေါင်းစပ်ပြီးပြီ။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("အလယ်အလတ်ကျောက်တုံး မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-fuse-4').addEventListener('click', () => {
+      if (state.stonesHigh >= 10) {
+        state.stonesHigh -= 10;
+        state.stonesDivine += 1;
+        addLog("အဆင့်မြင့်ကျောက်တုံး (၁၀) တုံးကို နတ်ဘုရားကျောက်တုံး (၁) တုံးအဖြစ် ပေါင်းစပ်ပြီးပြီ။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("အဆင့်မြင့်ကျောက်တုံး မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    // Reincarnate: Buy Talents
+    document.getElementById('btn-buy-talent-1').addEventListener('click', () => {
+      if (state.karma >= 5) {
+        state.karma -= 5;
+        state.talentIdx = 1;
+        addLog("ဝိညာဉ်သွေးကြောထူးခြားသူ မူလပါရမီကို ရရှိခဲ့သည်။ နောက်ဘဝများတွင် အကျိုးသက်ရောက်ပါမည်။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("ကံကြမ္မာရမှတ် မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-buy-talent-2').addEventListener('click', () => {
+      if (state.karma >= 15) {
+        state.karma -= 15;
+        state.talentIdx = 2;
+        addLog("တာအိုခန္ဓာကိုယ် မူလပါရမီကို ရရှိခဲ့သည်။ နောက်ဘဝများတွင် အကျိုးသက်ရောက်ပါမည်။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("ကံကြမ္မာရမှတ် မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-buy-talent-3').addEventListener('click', () => {
+      if (state.karma >= 30) {
+        state.karma -= 30;
+        state.talentIdx = 3;
+        addLog("အထွတ်အထိပ် ကမ္ဘာဦးခန္ဓာကိုယ် မူလပါရမီကို ရရှိခဲ့သည်။ နောက်ဘဝများတွင် အကျိုးသက်ရောက်ပါမည်။", "success");
+        updateUI();
+        saveGame();
+      } else {
+        addLog("ကံကြမ္မာရမှတ် မလုံလောက်ပါ။", "danger");
+      }
+    });
+
+    document.getElementById('btn-force-reincarnate').addEventListener('click', () => {
+      triggerDeath();
+    });
+
+    // Native Startup Setup
+    window.onload = function() {
+      const stateLoaded = loadGame();
+      
+      // Auto resource income generation for Sect
+      sectTimer = setInterval(() => {
+        if (state.disciples > 0) {
+          state.stonesOrdinary += state.incomeRate;
+          updateUI();
+        }
+      }, 1000);
+
+      if (stateLoaded) {
+        document.getElementById('creation-modal').classList.add('hidden');
+        addLog("ယခင် သိမ်းဆည်းထားသော ဒေတာများကို စနစ်ထဲမှ အောင်မြင်စွာ ပြန်လည်ရယူနိုင်ခဲ့သည်။", "system");
+        updateUI();
+      } else {
+        document.getElementById('creation-modal').classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+</html>
